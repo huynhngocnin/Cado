@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Cado</string>
 
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -9,4 +12,13 @@
     <string name="tab_child_livescore">Livescore</string>
     <string name="tab_child_result">Result</string>
     <string name="tab_child_fixtures">fixtures</string>
+
+    <string name="match_home">Home</string>
+    <string name="match_guest">Guest</string>
+    <string name="match_odds">Odds</string>
+
+
+
+
+    <string name="banner_ad_unit_id"></string>
 </resources>

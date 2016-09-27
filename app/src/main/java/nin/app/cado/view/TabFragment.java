@@ -1,6 +1,5 @@
 package nin.app.cado.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
-
 
 import nin.app.cado.R;
 
@@ -75,20 +73,18 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new GlobalFragment();
+                    return new TabItemLivescoreFragment();
                 case 1:
-                    return new ViewListTeamFragment();
+                    return new TabItemLivescoreFragment();
                 case 2:
-                    return new ViewListTeamFragment();
+                    return new TabItemLivescoreFragment();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-
             return int_items;
-
         }
 
         /**
@@ -97,13 +93,12 @@ public class TabFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public CharSequence getPageTitle(int position) {
-
             switch (position) {
                 case 0:
                     return getString(R.string.tab_child_livescore);
                 case 1:
                     return getString(R.string.tab_child_result);
-                case 1:
+                case 2:
                     return getString(R.string.tab_child_fixtures);
             }
             return null;
@@ -114,8 +109,8 @@ public class TabFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_global_add:
-                Intent intent = new Intent(getActivity(), RegisterMatchActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), RegisterMatchActivity.class);
+//                startActivity(intent);
                 break;
             default:
                 break;

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_info">Network Info</string>
+    <string name="network_connect_fail">Unable access internet, please check internet connection</string>
+</resources>
