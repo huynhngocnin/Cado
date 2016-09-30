@@ -73,11 +73,11 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new TabItemLivescoreFragment();
+                    return new TabItemLiveFragment();
                 case 1:
-                    return new TabItemLivescoreFragment();
+                    return new TabItemResultFragment();
                 case 2:
-                    return new TabItemLivescoreFragment();
+                    return new TabItemFixturesFragment();
             }
             return null;
         }
@@ -95,7 +95,7 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.tab_child_livescore);
+                    return getString(R.string.tab_child_live);
                 case 1:
                     return getString(R.string.tab_child_result);
                 case 2:

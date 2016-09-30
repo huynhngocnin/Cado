@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_camera" />
+            android:src="@mipmap/ic_flag_default" />
 
         <TextView
             android:id="@+id/lives_text_league_name"
@@ -103,10 +103,10 @@
 
         <ImageView
             android:id="@+id/lives_img_match_home_flag"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/item_league_height"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_camera" />
+            android:src="@mipmap/ic_flag_default" />
 
         <TextView
             android:id="@+id/lives_text_match_home_name"
@@ -141,10 +141,10 @@
 
         <ImageView
             android:id="@+id/lives_img_match_guest_flag"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/item_league_height"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_camera" />
+            android:src="@mipmap/ic_flag_default" />
 
         <TextView
             android:id="@+id/lives_text_match_guest_name"
@@ -264,8 +264,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="25"
+            android:padding="4dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_camera" />
+            android:src="@mipmap/ic_follow" />
 
     </LinearLayout>
 

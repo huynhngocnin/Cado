@@ -12,12 +12,12 @@ import java.util.List;
 import nin.app.cado.listener.TaskListener;
 import nin.app.cado.model.MatchResponseModel;
 
-import static nin.app.cado.constant.ServiceConstant.SERVICE_GET_MATCH_LIVE;
+import static nin.app.cado.constant.ServiceConstant.SERVICE_GET_MATCH_RESULT;
 
 /**
  * Created by NinHN on 9/23/16.
  */
-public class MatchLiveService extends AsyncTask<Integer, Void, MatchResponseModel> {
+public class MatchResultService extends AsyncTask<String, Void, MatchResponseModel> {
 
     private List<TaskListener> myListeners = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class MatchLiveService extends AsyncTask<Integer, Void, MatchResponseMode
 
     private int type;
 
-    public MatchLiveService(int type) {
+    public MatchResultService(int type) {
         this.type = type;
     }
 
@@ -40,17 +40,16 @@ public class MatchLiveService extends AsyncTask<Integer, Void, MatchResponseMode
     }
 
     @Override
-    protected MatchResponseModel doInBackground(Integer... params) {
-        return callService();
+    protected MatchResponseModel doInBackground(String... params) {
+        return callService(params[0]);
     }
 
-    private MatchResponseModel callService() {
+    private MatchResponseModel callService(String date) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {
-            MatchResponseModel matchResponseModel = restTemplate.getForObject(SERVICE_GET_MATCH_LIVE
-                    //+ CONDITION_START + CONDITION_PAGE + page
-                    , MatchResponseModel.class);
+            MatchResponseModel matchResponseModel = restTemplate.getForObject(SERVICE_GET_MATCH_RESULT +
+                    date, MatchResponseModel.class);
             return matchResponseModel;
         } catch (Exception e) {
             Log.d(getClass().toString(), e.getMessage(), e);

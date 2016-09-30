@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import nin.app.cado.R;
 import nin.app.cado.listener.OnMatchItemClickListener;
 import nin.app.cado.model.MatchModel;
@@ -14,7 +16,7 @@ import nin.app.cado.model.MatchModel;
  * Created by ninhn on 9/27/2016.
  */
 
-public class MatchHolder extends RecyclerView.ViewHolder{
+public class MatchHolder extends RecyclerView.ViewHolder {
 
     private ImageView leagueFlag;
     private TextView leagueName;
@@ -46,11 +48,51 @@ public class MatchHolder extends RecyclerView.ViewHolder{
         guestName = (TextView) itemView.findViewById(R.id.lives_text_match_guest_name);
         guestScore = (TextView) itemView.findViewById(R.id.lives_text_match_guest_score);
 
+        betHome = (TextView) itemView.findViewById(R.id.lives_text_bet_home);
+        betOdds = (TextView) itemView.findViewById(R.id.lives_text_bet_odds);
+        betGuest = (TextView) itemView.findViewById(R.id.lives_text_bet_guest);
+
         matchFollow = (ImageView) itemView.findViewById(R.id.lives_img_match_follow);
     }
 
     public void bind(final Context context, final MatchModel matchModel, final OnMatchItemClickListener listener) {
+        Picasso.with(itemView.getContext())
+                .load(matchModel.getLeague_id())
+                .error(R.drawable.ic_menu_camera)
+                .placeholder(R.drawable.ic_menu_camera)
+                .into(leagueFlag);
 
+        leagueName.setText(matchModel.getLeague_id());
 
+        matchTime.setText(matchModel.getStart());
+
+        matchDate.setText(matchModel.getDate());
+
+        Picasso.with(itemView.getContext())
+                .load(matchModel.getLeague_id())
+                .error(R.drawable.ic_menu_camera)
+                .placeholder(R.drawable.ic_menu_camera)
+                .into(homeFlag);
+        homeName.setText(matchModel.gethName());
+        homeScore.setText(matchModel.gethScore());
+
+        Picasso.with(itemView.getContext())
+                .load(matchModel.getLeague_id())
+                .error(R.drawable.ic_menu_camera)
+                .placeholder(R.drawable.ic_menu_camera)
+                .into(guestFlag);
+        guestName.setText(matchModel.getgName());
+        guestScore.setText(matchModel.getgScore());
+
+        betHome.setText(matchModel.gethMoney());
+        betGuest.setText(matchModel.getgMoney());
+        betOdds.setText(matchModel.getOdds());
+
+        matchFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(matchModel, matchFollow);
+            }
+        });
     }
 }

@@ -24,14 +24,16 @@ import nin.app.cado.listener.TaskListener;
 import nin.app.cado.model.MatchModel;
 import nin.app.cado.service.MatchLiveService;
 
-import static android.R.attr.type;
 import static nin.app.cado.constant.CommonConstant.ADMOB_CYCLE_SHOW;
 import static nin.app.cado.constant.CommonConstant.ADMOB_INIT_POSITION;
+import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_NEW;
+import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_REFRESH;
+import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_SCROLL;
 
 /**
  * Created by NinHN on 9/19/2016.
  */
-public class TabItemLivescoreFragment extends Fragment implements TaskListener, OnMatchItemClickListener {
+public class TabItemLiveFragment extends Fragment implements TaskListener, OnMatchItemClickListener {
 
     private List<MatchModel> matchModelList;
     private RecyclerView mRecyclerView;
@@ -56,7 +58,7 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
 
         initAdmobModel();
         initRecyclerView();
-        getMatchPage();
+        getMatchNew();
         initPullRefresh();
     }
 
@@ -125,22 +127,22 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
         });
     }
 
-    private void getMatchMore() {
-        MatchLiveService photoReviewUserService = new MatchLiveService(FLAG_PAGE_MORE);
-        photoReviewUserService.addListener(this);
-        photoReviewUserService.execute(page);
+    private void getMatchNew() {
+        MatchLiveService matchLiveService = new MatchLiveService(FLAG_LOAD_MATCH_NEW);
+        matchLiveService.addListener(this);
+        matchLiveService.execute();
     }
 
-    private void getMatchPage() {
-        MatchLiveService photoReviewUserService = new MatchLiveService(FLAG_PAGE_ONE);
-        photoReviewUserService.addListener(this);
-        photoReviewUserService.execute(0);
+    private void getMatchMore() {
+        MatchLiveService matchLiveService = new MatchLiveService(FLAG_LOAD_MATCH_SCROLL);
+        matchLiveService.addListener(this);
+        matchLiveService.execute();
     }
 
     private void getMatchRefresh() {
-        MatchLiveService photoReviewUserService = new MatchLiveService(FLAG_REFRESH);
-        photoReviewUserService.addListener(this);
-        photoReviewUserService.execute(0);
+        MatchLiveService matchLiveService = new MatchLiveService(FLAG_LOAD_MATCH_REFRESH);
+        matchLiveService.addListener(this);
+        matchLiveService.execute();
     }
 
     private void addPhotoToList(boolean isClearList) {
@@ -159,8 +161,8 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
 
     @Override
     public void onResultAvailable(Object... objects) {
-        matchModelListTemp = (List<MatchModel>) objects[2];
-        if (FLAG_PAGE_MORE == (int) objects[1]) {
+        matchModelListTemp = (List<MatchModel>) objects[1];
+        if (FLAG_LOAD_MATCH_SCROLL == (int) objects[0]) {
             if (matchModelList.size() > 0) {
                 //Remove loading item
                 matchModelList.remove(matchModelList.size() - 1);
@@ -172,7 +174,7 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
                 //Hide load more progress
                 matchAdapter.setLoaded();
             }
-        } else if (FLAG_PAGE_ONE == (int) objects[1]) {
+        } else if (FLAG_LOAD_MATCH_NEW == (int) objects[0]) {
             //Add list photo had just loaded and admob to list
             addPhotoToList(false);
         } else {
@@ -183,7 +185,6 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
             //Reset page to start
             page = 1;
         }
-
         //Update list after change
         matchAdapter.notifyDataSetChanged();
     }
@@ -191,6 +192,8 @@ public class TabItemLivescoreFragment extends Fragment implements TaskListener, 
     @Override
     public void onItemClick(MatchModel matchModel, View type) {
         switch (type.getId()) {
+            case 1:
+                break;
             default:
                 break;
 
