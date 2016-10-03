@@ -22,6 +22,8 @@ import nin.app.cado.listener.OnLoadMoreListener;
 import nin.app.cado.listener.OnMatchItemClickListener;
 import nin.app.cado.listener.TaskListener;
 import nin.app.cado.model.MatchModel;
+import nin.app.cado.model.MatchResponseModel;
+import nin.app.cado.model.MatchResultModel;
 import nin.app.cado.service.MatchFixturesService;
 
 import static nin.app.cado.constant.CommonConstant.ADMOB_CYCLE_SHOW;
@@ -34,14 +36,15 @@ import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_SCROLL;
  */
 public class TabItemFixturesFragment extends Fragment implements TaskListener, OnMatchItemClickListener {
 
-    private List<MatchModel> matchModelList;
+    private List<MatchResultModel> matchResultModels;
     private RecyclerView mRecyclerView;
     private MatchAdapter matchAdapter;
     private PullRefreshLayout pullRefreshLayout;
-    private MatchModel admobModel;
+    private MatchResultModel admobModel;
     private int admobCount = ADMOB_INIT_POSITION;
 
-    private List<MatchModel> matchModelListTemp;
+    //private List<MatchModel> matchModelListTemp;
+    private MatchResponseModel matchResponseModel;
 
     private int page = 1;
     private String date;
@@ -63,16 +66,30 @@ public class TabItemFixturesFragment extends Fragment implements TaskListener, O
     }
 
     private void initAdmobModel() {
-        admobModel = new MatchModel();
+        admobModel = new MatchResultModel();
         admobModel.setId(getString(R.string.banner_ad_unit_id));
     }
 
-    private void addAdmobToList(List<MatchModel> photoModels) {
-        if (photoModels.size() == 30) {
+    private void addAdmobToList(List<MatchResultModel> matchResultModels) {
+        if (matchResultModels.size() >= 100) {
+            addAdmobItem(10);
+        } else if (matchResultModels.size() >= 90) {
+            addAdmobItem(9);
+        } else if (matchResultModels.size() >= 80) {
+            addAdmobItem(8);
+        } else if (matchResultModels.size() >= 70) {
+            addAdmobItem(7);
+        } else if (matchResultModels.size() >= 60) {
+            addAdmobItem(6);
+        } else if (matchResultModels.size() >= 50) {
+            addAdmobItem(5);
+        } else if (matchResultModels.size() >= 40) {
+            addAdmobItem(4);
+        } else if (matchResultModels.size() >= 30) {
             addAdmobItem(3);
-        } else if (photoModels.size() >= 20) {
+        } else if (matchResultModels.size() >= 20) {
             addAdmobItem(2);
-        } else if (photoModels.size() >= 10) {
+        } else if (matchResultModels.size() >= 10) {
             addAdmobItem(1);
         }
     }
@@ -80,7 +97,7 @@ public class TabItemFixturesFragment extends Fragment implements TaskListener, O
     private void addAdmobItem(int number) {
         for (int i = 0; i < number; i++) {
             admobCount += ADMOB_CYCLE_SHOW;
-            matchModelList.add(admobCount, admobModel);
+            matchResultModels.add(admobCount, admobModel);
         }
     }
 
@@ -89,20 +106,20 @@ public class TabItemFixturesFragment extends Fragment implements TaskListener, O
     }
 
     private void initRecyclerView() {
-        matchModelList = new ArrayList<>();
+        matchResultModels = new ArrayList<>();
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recycle_live);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        matchAdapter = new MatchAdapter(getActivity(), mRecyclerView, matchModelList, this);
+        matchAdapter = new MatchAdapter(getActivity(), mRecyclerView, matchResultModels, this);
         mRecyclerView.setAdapter(matchAdapter);
 
         matchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                matchModelList.add(null);
-                matchAdapter.notifyItemInserted(matchModelList.size() - 1);
-                //Get more photo when scroll down to bottom
-                getMatchMore();
+//                matchModelList.add(null);
+//                matchAdapter.notifyItemInserted(matchModelList.size() - 1);
+//                //Get more photo when scroll down to bottom
+//                getMatchMore();
             }
         });
 
@@ -127,11 +144,11 @@ public class TabItemFixturesFragment extends Fragment implements TaskListener, O
         });
     }
 
-    private void getMatchMore() {
-        MatchFixturesService matchFixturesService = new MatchFixturesService(FLAG_LOAD_MATCH_SCROLL);
-        matchFixturesService.addListener(this);
-        matchFixturesService.execute(date);
-    }
+//    private void getMatchMore() {
+//        MatchFixturesService matchFixturesService = new MatchFixturesService(FLAG_LOAD_MATCH_SCROLL);
+//        matchFixturesService.addListener(this);
+//        matchFixturesService.execute(date);
+//    }
 
     private void getMatchPage() {
         MatchFixturesService matchFixturesService = new MatchFixturesService(FLAG_LOAD_MATCH_SCROLL);
@@ -148,33 +165,34 @@ public class TabItemFixturesFragment extends Fragment implements TaskListener, O
     private void addPhotoToList(boolean isClearList) {
         if (isClearList) {
             //Clear current photo list
-            matchModelList.clear();
+            matchResultModels.clear();
             //Clear admob are added before
             admobCount = ADMOB_INIT_POSITION;
         }
         //Add new photo list just loaded
-        matchModelList.addAll(matchModelListTemp);
+        matchResultModels.addAll(matchResponseModel.getResult());
         //Add admob to show list
-        addAdmobToList(matchModelListTemp);
+        addAdmobToList(matchResponseModel.getResult());
     }
 
 
     @Override
     public void onResultAvailable(Object... objects) {
-        matchModelListTemp = (List<MatchModel>) objects[1];
-        if (FLAG_LOAD_MATCH_SCROLL == (int) objects[0]) {
-            if (matchModelList.size() > 0) {
-                //Remove loading item
-                matchModelList.remove(matchModelList.size() - 1);
-                matchAdapter.notifyItemRemoved(matchModelList.size());
-                //Add list photo had just loaded and admob to list
-                addPhotoToList(false);
-                //count page
-                page++;
-                //Hide load more progress
-                matchAdapter.setLoaded();
-            }
-        } else if (FLAG_LOAD_MATCH_NEW == (int) objects[0]) {
+        matchResponseModel = (MatchResponseModel) objects[1];
+//        if (FLAG_LOAD_MATCH_SCROLL == (int) objects[0]) {
+//            if (matchResultModels.size() > 0) {
+//                //Remove loading item
+//                matchResultModels.remove(matchResultModels.size() - 1);
+//                matchAdapter.notifyItemRemoved(matchResultModels.size());
+//                //Add list photo had just loaded and admob to list
+//                addPhotoToList(false);
+//                //count page
+//                page++;
+//                //Hide load more progress
+//                matchAdapter.setLoaded();
+//            }
+//        } else
+        if (FLAG_LOAD_MATCH_NEW == (int) objects[0]) {
             //Add list photo had just loaded and admob to list
             addPhotoToList(false);
         } else {

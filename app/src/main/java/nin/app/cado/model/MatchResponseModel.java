@@ -1,12 +1,14 @@
 package nin.app.cado.model;
 
+import java.util.List;
+
 /**
  * Created by ninhn on 9/28/2016.
  */
 
 public class MatchResponseModel {
     private String message;
-    private MatchResultModel result;
+    private List<MatchResultModel> result;
 
     public String getMessage() {
         return message;
@@ -16,11 +18,11 @@ public class MatchResponseModel {
         this.message = message;
     }
 
-    public MatchResultModel getResult() {
+    public List<MatchResultModel> getResult() {
         return result;
     }
 
-    public void setResult(MatchResultModel result) {
+    public void setResult(List<MatchResultModel> result) {
         this.result = result;
     }
 }

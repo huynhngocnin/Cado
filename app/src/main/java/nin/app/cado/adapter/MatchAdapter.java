@@ -15,7 +15,8 @@ import nin.app.cado.holder.LoadingViewHolder;
 import nin.app.cado.holder.MatchHolder;
 import nin.app.cado.listener.OnLoadMoreListener;
 import nin.app.cado.listener.OnMatchItemClickListener;
-import nin.app.cado.model.MatchModel;
+import nin.app.cado.model.MatchResultModel;
+
 /**
  * Created by ninhn on 4/9/2016.
  */
@@ -25,7 +26,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_TYPE_ADMOB = 2;
 
     private Context context;
-    private List<MatchModel> matchModelList;
+    private List<MatchResultModel> matchResultModels;
 
     private OnLoadMoreListener mOnLoadMoreListener;
     private OnMatchItemClickListener listener;
@@ -34,9 +35,9 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public MatchAdapter(Context context, RecyclerView recyclerView, List<MatchModel> matchModelList, OnMatchItemClickListener listener) {
+    public MatchAdapter(Context context, RecyclerView recyclerView, List<MatchResultModel> matchResultModels, OnMatchItemClickListener listener) {
         this.context = context;
-        this.matchModelList = matchModelList;
+        this.matchResultModels = matchResultModels;
         this.listener = listener;
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -63,13 +64,13 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return matchModelList == null ? 0 : matchModelList.size();
+        return matchResultModels == null ? 0 : matchResultModels.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (matchModelList.get(position) != null) {
-            if (!context.getString(R.string.banner_ad_unit_id).equals(matchModelList.get(position).getId())) {
+        if (matchResultModels.get(position) != null) {
+            if (!context.getString(R.string.banner_ad_unit_id).equals(matchResultModels.get(position).getId())) {
                 return VIEW_TYPE_ITEM;
             } else {
                 return VIEW_TYPE_ADMOB;
@@ -98,7 +99,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MatchHolder) {
-            ((MatchHolder) holder).bind(this.context, matchModelList.get(position), this.listener);
+            ((MatchHolder) holder).bind(this.context, matchResultModels.get(position), this.listener);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
