@@ -2,4 +2,5 @@
 <resources>
     <string name="network_info">Network Info</string>
     <string name="network_connect_fail">Unable access internet, please check internet connection</string>
+    <string name="bet_point">You can bet this match with amount {0} point.</string>
 </resources>

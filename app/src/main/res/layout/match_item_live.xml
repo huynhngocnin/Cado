@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_match_height"
+    android:layout_marginBottom="1dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="44"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/match_item_live_home_event_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/match_item_live_home_event_icon"
+            android:gravity="center|right"
+            android:text="-" />
+
+        <ImageView
+            android:id="@+id/match_item_live_home_event_icon"
+            android:layout_width="@dimen/item_match_height"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_ball_goal" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/match_item_live_event_text"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="12"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="-" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="44"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/match_item_live_guest_event_icon"
+            android:layout_width="@dimen/item_match_height"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_ball_goal" />
+
+        <TextView
+            android:id="@+id/match_item_live_guest_event_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/match_item_live_kind"
+            android:gravity="center|left"
+            android:text="-" />
+
+    </LinearLayout>
+
+</LinearLayout>

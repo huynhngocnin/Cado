@@ -14,11 +14,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_live"
-            android:name="com.nttdata.foomatch.view.GlobalFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/dark_old"
-            tools:context="com.nttdata.foomatch.view.GlobalFragment"
             tools:listitem="@layout/item_livescore" />
     </com.baoyz.widget.PullRefreshLayout>
 
