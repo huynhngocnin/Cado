@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import nin.app.cado.R;
-import nin.app.cado.listener.OnMatchItemClickListener;
 import nin.app.cado.model.MatchTechModel;
 
 /**
@@ -27,7 +26,7 @@ public class MatchAnalysisHolder extends RecyclerView.ViewHolder {
         txtGuestEvent = (TextView) itemView.findViewById(R.id.match_item_analysis_guest_event_text);
     }
 
-    public void bind(final Context context, final MatchTechModel matchTechModel, final OnMatchItemClickListener listener) {
+    public void bind(final Context context, final MatchTechModel matchTechModel) {
 
         txtHomeEvent.setText(matchTechModel.getHomeValue());
 

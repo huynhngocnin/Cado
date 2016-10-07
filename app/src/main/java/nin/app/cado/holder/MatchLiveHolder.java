@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import nin.app.cado.R;
-import nin.app.cado.listener.OnMatchItemClickListener;
 import nin.app.cado.model.MatchDetailModel;
 
 /**
@@ -36,11 +35,11 @@ public class MatchLiveHolder extends RecyclerView.ViewHolder {
         txtGuestEvent = (TextView) itemView.findViewById(R.id.match_item_live_guest_event_text);
     }
 
-    public void bind(final Context context, final MatchDetailModel matchDetailModel, final OnMatchItemClickListener listener) {
+    public void bind(final Context context, final MatchDetailModel matchDetailModel) {
         Picasso.with(itemView.getContext())
-                .load("matchDetailModel.getHomeKind()") //Load image theo kind
-                .error(R.drawable.ic_menu_camera)
-                .placeholder(R.drawable.ic_menu_camera)
+                .load(matchDetailModel.getHomeKind()) //Load image theo kind
+                .error(R.mipmap.ic_ball_goal)
+                .placeholder(R.mipmap.ic_ball_goal)
                 .into(imgHomeEvent);
 
         txtHomeEvent.setText(matchDetailModel.getHomePlayer());
@@ -48,9 +47,9 @@ public class MatchLiveHolder extends RecyclerView.ViewHolder {
         txtMatchEvent.setText(matchDetailModel.getHappenTime());
 
         Picasso.with(itemView.getContext())
-                .load("matchDetailModel.getGuestKind()") //Load image theo kind
-                .error(R.drawable.ic_menu_camera)
-                .placeholder(R.drawable.ic_menu_camera)
+                .load(matchDetailModel.getGuestKind()) //Load image theo kind
+                .error(R.mipmap.ic_ball_goal)
+                .placeholder(R.mipmap.ic_ball_goal)
                 .into(imgGuestEvent);
 
         txtGuestEvent.setText(matchDetailModel.getGuestPlayer());
