@@ -22,10 +22,13 @@ import nin.app.cado.R;
  */
 public class TabFragment extends Fragment implements View.OnClickListener {
 
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
-    public static FloatingActionButton btnAdd;
-    public static int int_items = 3;
+    private static TabLayout tabLayout;
+    private static ViewPager viewPager;
+    private static FloatingActionButton btnAdd;
+    private static int int_items = 3;
+    private TabItemLiveFragment tabItemLiveFragment;
+    private TabItemResultFragment tabItemResultFragment;
+    private TabItemFixturesFragment tabItemFixturesFragment;
 
     @Nullable
     @Override
@@ -39,6 +42,9 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         btnAdd = (FloatingActionButton) x.findViewById(R.id.btn_global_add);
         btnAdd.setOnClickListener(this);
 
+        tabItemLiveFragment = new TabItemLiveFragment();
+        tabItemResultFragment = new TabItemResultFragment();
+        tabItemFixturesFragment = new TabItemFixturesFragment();
         /**
          *Set an Apater for the View Pager
          */
@@ -73,11 +79,11 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new TabItemLiveFragment();
+                    return tabItemLiveFragment;
                 case 1:
-                    return new TabItemResultFragment();
+                    return tabItemResultFragment;
                 case 2:
-                    return new TabItemFixturesFragment();
+                    return tabItemFixturesFragment;
             }
             return null;
         }

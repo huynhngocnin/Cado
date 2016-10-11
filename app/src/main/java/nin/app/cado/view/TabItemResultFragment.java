@@ -47,7 +47,7 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
     private MatchResponseModel matchResponseModel;
 
     private int page = 1;
-    private String date;
+    private String date = "2016-10-11";
 
     @Nullable
     @Override
