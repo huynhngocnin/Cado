@@ -22,7 +22,7 @@ public class MatchLiveAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<MatchDetailModel> matchDetailModels;
 
 
-    public MatchLiveAdapter(Context context, RecyclerView recyclerView, List<MatchDetailModel> matchDetailModels) {
+    public MatchLiveAdapter(Context context, List<MatchDetailModel> matchDetailModels) {
         this.context = context;
         this.matchDetailModels = matchDetailModels;
     }

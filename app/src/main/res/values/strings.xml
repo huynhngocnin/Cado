@@ -13,6 +13,10 @@
     <string name="tab_child_result">Result</string>
     <string name="tab_child_fixtures">fixtures</string>
 
+    <string name="match_tab_child_live">Live</string>
+    <string name="match_tab_child_general">General</string>
+    <string name="match_tab_child_analysis">Analysis</string>
+
     <string name="match_home">Home</string>
     <string name="match_guest">Guest</string>
     <string name="match_odds">Odds</string>
