@@ -24,7 +24,7 @@
         app:tabTextColor="@color/blue" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_global_add"
+        android:id="@+id/btn_list_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tabs"

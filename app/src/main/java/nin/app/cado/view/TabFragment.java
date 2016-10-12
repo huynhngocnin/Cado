@@ -114,7 +114,7 @@ public class TabFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_global_add:
+            case R.id.btn_list_refresh:
 //                Intent intent = new Intent(getActivity(), RegisterMatchActivity.class);
 //                startActivity(intent);
                 break;
