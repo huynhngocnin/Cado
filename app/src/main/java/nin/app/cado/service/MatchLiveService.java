@@ -45,6 +45,7 @@ public class MatchLiveService extends AsyncTask<Integer, Void, MatchResponseMode
     }
 
     private MatchResponseModel callService() {
+        Log.d(getClass().toString(), "Service is called");
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {

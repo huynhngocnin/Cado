@@ -45,6 +45,7 @@ public class MatchFixturesService extends AsyncTask<String, Void, MatchResponseM
     }
 
     private MatchResponseModel callService(String date) {
+        Log.d(getClass().toString(), "Service is called");
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {

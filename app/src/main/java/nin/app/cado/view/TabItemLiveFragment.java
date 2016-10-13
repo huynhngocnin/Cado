@@ -40,13 +40,13 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
     private RecyclerView mRecyclerView;
     private MatchAdapter matchAdapter;
     private PullRefreshLayout pullRefreshLayout;
-    private MatchResultModel admobModel;
-    private int admobCount = ADMOB_INIT_POSITION;
+//    private MatchResultModel admobModel;
+//    private int admobCount = ADMOB_INIT_POSITION;
 
     //private List<MatchModel> matchModelListTemp;
     private MatchResponseModel matchResponseModel;
 
-    private int page = 1;
+//    private int page = 1;
 
     @Nullable
     @Override
@@ -58,47 +58,47 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initAdmobModel();
+//        initAdmobModel();
         initRecyclerView();
         getMatchNew();
         initPullRefresh();
     }
 
-    private void initAdmobModel() {
-        admobModel = new MatchResultModel();
-        admobModel.setId(getString(R.string.banner_ad_unit_id));
-    }
-
-    private void addAdmobToList(List<MatchResultModel> matchResultModels) {
-        if (matchResultModels.size() >= 100) {
-            addAdmobItem(10);
-        } else if (matchResultModels.size() >= 90) {
-            addAdmobItem(9);
-        } else if (matchResultModels.size() >= 80) {
-            addAdmobItem(8);
-        } else if (matchResultModels.size() >= 70) {
-            addAdmobItem(7);
-        } else if (matchResultModels.size() >= 60) {
-            addAdmobItem(6);
-        } else if (matchResultModels.size() >= 50) {
-            addAdmobItem(5);
-        } else if (matchResultModels.size() >= 40) {
-            addAdmobItem(4);
-        } else if (matchResultModels.size() >= 30) {
-            addAdmobItem(3);
-        } else if (matchResultModels.size() >= 20) {
-            addAdmobItem(2);
-        } else if (matchResultModels.size() >= 10) {
-            addAdmobItem(1);
-        }
-    }
-
-    private void addAdmobItem(int number) {
-        for (int i = 0; i < number; i++) {
-            admobCount += ADMOB_CYCLE_SHOW;
-            matchResultModels.add(admobCount, admobModel);
-        }
-    }
+//    private void initAdmobModel() {
+//        admobModel = new MatchResultModel();
+//        admobModel.setId(getString(R.string.banner_ad_unit_id));
+//    }
+//
+//    private void addAdmobToList(List<MatchResultModel> matchResultModels) {
+//        if (matchResultModels.size() >= 100) {
+//            addAdmobItem(10);
+//        } else if (matchResultModels.size() >= 90) {
+//            addAdmobItem(9);
+//        } else if (matchResultModels.size() >= 80) {
+//            addAdmobItem(8);
+//        } else if (matchResultModels.size() >= 70) {
+//            addAdmobItem(7);
+//        } else if (matchResultModels.size() >= 60) {
+//            addAdmobItem(6);
+//        } else if (matchResultModels.size() >= 50) {
+//            addAdmobItem(5);
+//        } else if (matchResultModels.size() >= 40) {
+//            addAdmobItem(4);
+//        } else if (matchResultModels.size() >= 30) {
+//            addAdmobItem(3);
+//        } else if (matchResultModels.size() >= 20) {
+//            addAdmobItem(2);
+//        } else if (matchResultModels.size() >= 10) {
+//            addAdmobItem(1);
+//        }
+//    }
+//
+//    private void addAdmobItem(int number) {
+//        for (int i = 0; i < number; i++) {
+//            admobCount += ADMOB_CYCLE_SHOW;
+//            matchResultModels.add(admobCount, admobModel);
+//        }
+//    }
 
     public void handleUploadSuccess() {
         getMatchRefresh();
@@ -166,13 +166,13 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
             //Clear current photo list
             matchResultModels.clear();
             //Clear admob are added before
-            admobCount = ADMOB_INIT_POSITION;
+//            admobCount = ADMOB_INIT_POSITION;
         }
 
         //Add new photo list just loaded
         matchResultModels.addAll(matchResponseModel.getResult());
         //Add admob to show list
-        addAdmobToList(matchResponseModel.getResult());
+//        addAdmobToList(matchResponseModel.getResult());
     }
 
 
@@ -201,7 +201,7 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
             //Disable refresh control
             pullRefreshLayout.setRefreshing(false);
             //Reset page to start
-            page = 1;
+//            page = 1;
         }
         //Update list after change
         matchAdapter.notifyDataSetChanged();

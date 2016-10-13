@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,9 @@ import nin.app.cado.R;
  */
 public class TabFragment extends Fragment implements View.OnClickListener {
 
-    private static TabLayout tabLayout;
-    private static ViewPager viewPager;
-    private static FloatingActionButton btnAdd;
+    public static TabLayout tabLayout;
+    public static ViewPager viewPager;
+    public static FloatingActionButton btnAdd;
     private static int int_items = 3;
     private TabItemLiveFragment tabItemLiveFragment;
     private TabItemResultFragment tabItemResultFragment;
@@ -39,7 +40,9 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         View x = inflater.inflate(R.layout.tab_layout, null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-        btnAdd = (FloatingActionButton) x.findViewById(R.id.btn_global_add);
+        //Set number fragment no reload
+        viewPager.setOffscreenPageLimit(3);
+        btnAdd = (FloatingActionButton) x.findViewById(R.id.btn_list_refresh);
         btnAdd.setOnClickListener(this);
 
         tabItemLiveFragment = new TabItemLiveFragment();
@@ -79,10 +82,13 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
+                    Log.d(getClass().toString(), "TabItemLiveFragment is selected");
                     return tabItemLiveFragment;
                 case 1:
+                    Log.d(getClass().toString(), "TabItemResultFragment is selected");
                     return tabItemResultFragment;
                 case 2:
+                    Log.d(getClass().toString(), "TabItemFixturesFragment is selected");
                     return tabItemFixturesFragment;
             }
             return null;
@@ -123,13 +129,4 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void showFloatButton() {
-        btnAdd.animate().translationX(0).setInterpolator(new DecelerateInterpolator(2)).start();
-    }
-
-    public void hideFloatButton() {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnAdd.getLayoutParams();
-        int fabBottomMargin = lp.bottomMargin;
-        btnAdd.animate().translationX(btnAdd.getWidth() + fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
-    }
 }
