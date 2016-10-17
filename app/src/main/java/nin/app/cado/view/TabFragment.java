@@ -17,6 +17,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 import nin.app.cado.R;
+import nin.app.cado.Util.SnackbarUtil;
 
 /**
  * Created by NinHN on 8/27/2016.
@@ -30,6 +31,8 @@ public class TabFragment extends Fragment implements View.OnClickListener {
     private TabItemLiveFragment tabItemLiveFragment;
     private TabItemResultFragment tabItemResultFragment;
     private TabItemFixturesFragment tabItemFixturesFragment;
+    private int pageSelected = 0;
+    private MainActivity mainActivity;
 
     @Nullable
     @Override
@@ -45,6 +48,8 @@ public class TabFragment extends Fragment implements View.OnClickListener {
         btnAdd = (FloatingActionButton) x.findViewById(R.id.btn_list_refresh);
         btnAdd.setOnClickListener(this);
 
+        mainActivity = (MainActivity) getActivity();
+
         tabItemLiveFragment = new TabItemLiveFragment();
         tabItemResultFragment = new TabItemResultFragment();
         tabItemFixturesFragment = new TabItemFixturesFragment();
@@ -52,6 +57,20 @@ public class TabFragment extends Fragment implements View.OnClickListener {
          *Set an Apater for the View Pager
          */
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                //SnackbarUtil.showShort(tabLayout, "onPageSelected: " + position);
+                pageSelected = position;
+                mainActivity.setDatePicker(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
 
         /**
          * Now , this is a workaround ,
@@ -115,6 +134,8 @@ public class TabFragment extends Fragment implements View.OnClickListener {
             }
             return null;
         }
+
+
     }
 
     @Override

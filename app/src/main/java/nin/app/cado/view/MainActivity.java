@@ -11,7 +11,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,40 +25,32 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager mFragmentManager;
+    private Spinner spDate;
+    private TextView tvTitle;
+    private TextView tvMoney;
+    private TextView tvCurrency;
+    private ActionBar mActionBar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.actionbar_form, null);
-        TextView tvTitle = (TextView) mCustomView.findViewById(R.id.actionbar_title);
-        Spinner spDate = (Spinner) mCustomView.findViewById(R.id.actionbar_date);
-        TextView tvMoney = (TextView) mCustomView.findViewById(R.id.actionbar_money);
-        TextView tvCurrency = (TextView) mCustomView.findViewById(R.id.actionbar_currency);
-        ActionBar mActionBar = getSupportActionBar();
+        tvTitle = (TextView) mCustomView.findViewById(R.id.actionbar_title);
+        spDate = (Spinner) mCustomView.findViewById(R.id.actionbar_date);
+        tvMoney = (TextView) mCustomView.findViewById(R.id.actionbar_money);
+        tvCurrency = (TextView) mCustomView.findViewById(R.id.actionbar_currency);
+        mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, DateTimeUtil.getList7DayResult()); //selected item will look like a spinner set from XML
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spDate.setAdapter(spinnerArrayAdapter);
-        spDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SnackbarUtil.showShort(toolbar, position + "-" +id);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+        setDatePicker(0);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Select menu but not highlight menuBar
-        //onNavigationItemSelected(navigationView.getMenu().getItem(0));
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
         //Select menu and highlight menuBar
         navigationView.setCheckedItem(R.id.nav_camera);
 
@@ -127,7 +118,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
         } else if (id == R.id.nav_gallery) {
@@ -145,5 +135,42 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setDatePicker(int pageType) {
+        if (pageType == 0) {
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, new String[]{DateTimeUtil.getCurrentDate()}); //selected item will look like a spinner set from XML
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spDate.setAdapter(spinnerArrayAdapter);
+            spDate.setEnabled(false);
+        } else if (pageType == 1) {
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, DateTimeUtil.getList7DayResult()); //selected item will look like a spinner set from XML
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spDate.setAdapter(spinnerArrayAdapter);
+            spDate.setEnabled(true);
+            spDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    SnackbarUtil.showShort(spDate, "Result:" + id);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        } else {
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, DateTimeUtil.getList7DayFixtures()); //selected item will look like a spinner set from XML
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spDate.setAdapter(spinnerArrayAdapter);
+            spDate.setEnabled(true);
+            spDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    SnackbarUtil.showShort(spDate, "Fixtures:" + id);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        }
     }
 }

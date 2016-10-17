@@ -122,6 +122,8 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
             }
         });
 
+        //mRecyclerView.addOnItemTouchListener(new );
+
     }
 
     private void initPullRefresh() {
