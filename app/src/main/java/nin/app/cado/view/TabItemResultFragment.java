@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +20,21 @@ import nin.app.cado.Util.ConnectionUntil;
 import nin.app.cado.Util.DateTimeUtil;
 import nin.app.cado.Util.ToastUntil;
 import nin.app.cado.adapter.MatchAdapter;
+import nin.app.cado.event.DateResultChangedEvent;
+import nin.app.cado.helper.BusProvider;
 import nin.app.cado.listener.OnLoadMoreListener;
 import nin.app.cado.listener.OnMatchItemClickListener;
 import nin.app.cado.listener.TaskListener;
 import nin.app.cado.model.MatchModel;
 import nin.app.cado.model.MatchResponseModel;
 import nin.app.cado.model.MatchResultModel;
+import nin.app.cado.service.MatchFixturesService;
 import nin.app.cado.service.MatchResultService;
 
 import static nin.app.cado.constant.CommonConstant.ADMOB_CYCLE_SHOW;
 import static nin.app.cado.constant.CommonConstant.ADMOB_INIT_POSITION;
 import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_NEW;
+import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_REFRESH;
 import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_SCROLL;
 
 /**
@@ -48,6 +53,7 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
     private MatchResponseModel matchResponseModel;
 
 //    private int page = 1;
+    private String date = DateTimeUtil.getYesterdayDate();
 
     @Nullable
     @Override
@@ -63,6 +69,28 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
         initRecyclerView();
         getMatchPage();
         initPullRefresh();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Register ourselves so that we can provide the initial value.
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Subscribe
+    public void onDateResultChanged(DateResultChangedEvent event) {
+        if (!date.equals(event.getDate())) {
+            MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_REFRESH);
+            matchResultService.addListener(this);
+            matchResultService.execute(event.getDate());
+        }
     }
 
 //    private void initAdmobModel() {
@@ -147,15 +175,15 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
 //    }
 
     private void getMatchPage() {
-        MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_SCROLL);
+        MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_NEW);
         matchResultService.addListener(this);
-        matchResultService.execute(DateTimeUtil.getCurrentDate());
+        matchResultService.execute(date);
     }
 
     private void getMatchRefresh() {
-        MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_SCROLL);
+        MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_REFRESH);
         matchResultService.addListener(this);
-        matchResultService.execute(DateTimeUtil.getCurrentDate());
+        matchResultService.execute(date);
     }
 
     private void addPhotoToList(boolean isClearList) {

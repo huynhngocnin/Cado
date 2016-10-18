@@ -134,8 +134,6 @@ public class TabFragment extends Fragment implements View.OnClickListener {
             }
             return null;
         }
-
-
     }
 
     @Override

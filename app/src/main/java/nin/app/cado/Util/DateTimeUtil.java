@@ -19,6 +19,22 @@ public class DateTimeUtil {
         return dateFormat.format(new Date()); //2014-08-06
     }
 
+    public static String getYesterdayDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYYMMDD);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, -1);
+        return sdf.format(c.getTime());
+    }
+
+    public static String getTomorrowDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYYMMDD);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, 1);
+        return sdf.format(c.getTime());
+    }
+
     public static List<String> getList7DayResult() {
         List<String> lstDate = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYYMMDD);
