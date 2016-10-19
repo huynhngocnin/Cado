@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.baoyz.widget.PullRefreshLayout;
 
@@ -40,6 +41,7 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
     private RecyclerView mRecyclerView;
     private MatchAdapter matchAdapter;
     private PullRefreshLayout pullRefreshLayout;
+    private ProgressBar progressBarRefresh;
 //    private MatchResultModel admobModel;
 //    private int admobCount = ADMOB_INIT_POSITION;
 
@@ -111,6 +113,8 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         matchAdapter = new MatchAdapter(getActivity(), mRecyclerView, matchResultModels, this);
         mRecyclerView.setAdapter(matchAdapter);
+
+        progressBarRefresh = (ProgressBar) getActivity().findViewById(R.id.refresh_live);
 
         matchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -205,6 +209,7 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
             //Reset page to start
 //            page = 1;
         }
+        progressBarRefresh.setVisibility(View.GONE);
         //Update list after change
         matchAdapter.notifyDataSetChanged();
     }

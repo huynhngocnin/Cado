@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.squareup.otto.Subscribe;
@@ -46,6 +47,7 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
     private RecyclerView mRecyclerView;
     private MatchAdapter matchAdapter;
     private PullRefreshLayout pullRefreshLayout;
+    private ProgressBar progressBarRefresh;
 //    private MatchResultModel admobModel;
 //    private int admobCount = ADMOB_INIT_POSITION;
 
@@ -86,10 +88,16 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
 
     @Subscribe
     public void onDateResultChanged(DateResultChangedEvent event) {
-        if (!date.equals(event.getDate())) {
+        if (!date.equals(event.getDate()) && !DateTimeUtil.getCurrentDate().equals(event.getDate())) {
+            progressBarRefresh.setVisibility(View.VISIBLE);
+            matchResultModels.clear();
+            matchAdapter.notifyDataSetChanged();
+
             MatchResultService matchResultService = new MatchResultService(FLAG_LOAD_MATCH_REFRESH);
             matchResultService.addListener(this);
             matchResultService.execute(event.getDate());
+
+            date = event.getDate();
         }
     }
 
@@ -136,6 +144,8 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         matchAdapter = new MatchAdapter(getActivity(), mRecyclerView, matchResultModels, this);
         mRecyclerView.setAdapter(matchAdapter);
+
+        progressBarRefresh = (ProgressBar) getActivity().findViewById(R.id.refresh_result);
 
         matchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -227,6 +237,8 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
             //Reset page to start
 //            page = 1;
         }
+
+        progressBarRefresh.setVisibility(View.GONE);
 
         //Update list after change
         matchAdapter.notifyDataSetChanged();

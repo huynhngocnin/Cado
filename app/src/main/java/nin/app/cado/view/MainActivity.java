@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -202,6 +203,7 @@ public class MainActivity extends AppCompatActivity
     @Produce
     public DateResultChangedEvent produceDateResultEvent() {
         // Provide an initial value for location based on the last known position.
+        Log.d(getClass().toString(), "DateResultChangedEvent is called: " + valueResult);
         return new DateResultChangedEvent(valueResult);
 
     }
@@ -209,6 +211,7 @@ public class MainActivity extends AppCompatActivity
     @Produce
     public DateFixturesChangedEvent produceDateFixturesEvent() {
         // Provide an initial value for location based on the last known position.
+        Log.d(getClass().toString(), "DateFixturesChangedEvent is called: " + valueFixtures);
         return new DateFixturesChangedEvent(valueFixtures);
     }
 }
