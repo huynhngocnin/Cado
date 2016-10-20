@@ -27,6 +27,10 @@ public class MatchModel {
     private String gRed;
     private String hYellow;
     private String gYellow;
+    private String lId;
+    private String lName;
+    private String lFullName;
+    private String lColor;
 
     private List TechStatistic;
     private List DetailList;
@@ -189,6 +193,38 @@ public class MatchModel {
 
     public void setgYellow(String gYellow) {
         this.gYellow = gYellow;
+    }
+
+    public String getlId() {
+        return lId;
+    }
+
+    public void setlId(String lId) {
+        this.lId = lId;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getlFullName() {
+        return lFullName;
+    }
+
+    public void setlFullName(String lFullName) {
+        this.lFullName = lFullName;
+    }
+
+    public String getlColor() {
+        return lColor;
+    }
+
+    public void setlColor(String lColor) {
+        this.lColor = lColor;
     }
 
     public List getTechStatistic() {

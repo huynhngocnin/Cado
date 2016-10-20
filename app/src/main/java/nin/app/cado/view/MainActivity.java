@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private String valueResult = DateTimeUtil.getYesterdayDate();
     private String valueFixtures = DateTimeUtil.getTomorrowDate();
+    private int pageType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setDatePicker(int pageType) {
+        this.pageType = pageType;
         if (pageType == 0) {
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, new String[]{DateTimeUtil.getCurrentDate()}); //selected item will look like a spinner set from XML
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -172,8 +174,7 @@ public class MainActivity extends AppCompatActivity
             spDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    valueResult = spDate.getSelectedItem().toString();
-                    BusProvider.getInstance().post(produceDateResultEvent());
+                    callEventBusResult();
                 }
 
                 @Override
@@ -189,14 +190,29 @@ public class MainActivity extends AppCompatActivity
             spDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    valueFixtures = spDate.getSelectedItem().toString();
-                    BusProvider.getInstance().post(produceDateFixturesEvent());
+                    callEventBusFixtures();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
+        }
+    }
+
+    private void callEventBusResult() {
+        if (this.pageType != 0) {
+            Log.d(getClass().toString(), "valueResult is selected: " + valueResult);
+            valueResult = spDate.getSelectedItem().toString();
+            BusProvider.getInstance().post(produceDateResultEvent());
+        }
+    }
+
+    private void callEventBusFixtures() {
+        if (this.pageType != 0) {
+            Log.d(getClass().toString(), "valueFixtures is selected: " + valueFixtures);
+            valueFixtures = spDate.getSelectedItem().toString();
+            BusProvider.getInstance().post(produceDateFixturesEvent());
         }
     }
 

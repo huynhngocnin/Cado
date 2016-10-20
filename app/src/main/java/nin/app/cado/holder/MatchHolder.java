@@ -57,19 +57,19 @@ public class MatchHolder extends RecyclerView.ViewHolder {
 
     public void bind(final Context context, final MatchModel matchModel, final OnMatchItemClickListener listener) {
         Picasso.with(itemView.getContext())
-                .load(matchModel.getLeague_id())
+                .load(matchModel.getlId())
                 .error(R.drawable.ic_menu_camera)
                 .placeholder(R.drawable.ic_menu_camera)
                 .into(leagueFlag);
 
-        leagueName.setText(matchModel.getLeague_id());
+        leagueName.setText(matchModel.getlFullName());
 
         matchTime.setText(matchModel.getStart());
 
         matchDate.setText(matchModel.getDate());
 
         Picasso.with(itemView.getContext())
-                .load(matchModel.getLeague_id())
+                .load(matchModel.gethName())
                 .error(R.drawable.ic_menu_camera)
                 .placeholder(R.drawable.ic_menu_camera)
                 .into(homeFlag);
@@ -77,7 +77,7 @@ public class MatchHolder extends RecyclerView.ViewHolder {
         homeScore.setText(matchModel.gethScore());
 
         Picasso.with(itemView.getContext())
-                .load(matchModel.getLeague_id())
+                .load(matchModel.getgName())
                 .error(R.drawable.ic_menu_camera)
                 .placeholder(R.drawable.ic_menu_camera)
                 .into(guestFlag);
