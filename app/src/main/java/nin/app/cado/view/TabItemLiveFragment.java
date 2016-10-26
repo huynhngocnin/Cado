@@ -17,6 +17,7 @@ import java.util.List;
 
 import nin.app.cado.R;
 import nin.app.cado.Util.ConnectionUntil;
+import nin.app.cado.Util.SnackbarUtil;
 import nin.app.cado.Util.ToastUntil;
 import nin.app.cado.adapter.MatchAdapter;
 import nin.app.cado.listener.OnLoadMoreListener;
@@ -27,8 +28,6 @@ import nin.app.cado.model.MatchResponseModel;
 import nin.app.cado.model.MatchResultModel;
 import nin.app.cado.service.MatchLiveService;
 
-import static nin.app.cado.constant.CommonConstant.ADMOB_CYCLE_SHOW;
-import static nin.app.cado.constant.CommonConstant.ADMOB_INIT_POSITION;
 import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_NEW;
 import static nin.app.cado.constant.ServiceConstant.FLAG_LOAD_MATCH_REFRESH;
 
@@ -101,10 +100,6 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
 //            matchResultModels.add(admobCount, admobModel);
 //        }
 //    }
-
-    public void handleUploadSuccess() {
-        getMatchRefresh();
-    }
 
     private void initRecyclerView() {
         matchResultModels = new ArrayList<>();
@@ -217,11 +212,17 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
     @Override
     public void onItemClick(MatchModel matchModel, View type) {
         switch (type.getId()) {
-            case 1:
+            case R.id.lives_img_match_follow:
+                //SnackbarUtil.showShort(progressBarRefresh, "Follow clicked: " + matchModel.getlName());
+                int positionDeo = matchResultModels.indexOf(matchModel);
+                //SnackbarUtil.showShort(progressBarRefresh, "Follow position: " + positionDeo);
+                ToastUntil.showShort(getActivity(), "Follow position: " + positionDeo);
                 break;
             default:
+                SnackbarUtil.showShort(progressBarRefresh, "Item clicked: " + matchModel.getlName());
                 break;
 
         }
     }
+
 }

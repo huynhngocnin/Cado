@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/dark_old"
-            tools:listitem="@layout/item_result" />
+            tools:listitem="@layout/item_match" />
     </com.baoyz.widget.PullRefreshLayout>
 
     <ProgressBar

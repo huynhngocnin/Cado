@@ -84,7 +84,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (viewType == VIEW_TYPE_ITEM) {
-            view = LayoutInflater.from(this.context).inflate(R.layout.item_livescore, parent, false);
+            view = LayoutInflater.from(this.context).inflate(R.layout.item_match, parent, false);
             return new MatchHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             view = LayoutInflater.from(this.context).inflate(R.layout.loading_item, parent, false);

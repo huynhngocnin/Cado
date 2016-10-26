@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,6 +18,8 @@ import nin.app.cado.model.MatchModel;
  */
 
 public class MatchHolder extends RecyclerView.ViewHolder {
+
+    private LinearLayout linearLayout;
 
     private ImageView leagueFlag;
     private TextView leagueName;
@@ -35,6 +38,8 @@ public class MatchHolder extends RecyclerView.ViewHolder {
 
     public MatchHolder(View itemView) {
         super(itemView);
+        linearLayout = (LinearLayout) itemView.findViewById(R.id.match_item);
+
         leagueFlag = (ImageView) itemView.findViewById(R.id.lives_img_league_flag);
         leagueName = (TextView) itemView.findViewById(R.id.lives_text_league_name);
         matchTime = (TextView) itemView.findViewById(R.id.lives_text_match_time);
@@ -58,8 +63,8 @@ public class MatchHolder extends RecyclerView.ViewHolder {
     public void bind(final Context context, final MatchModel matchModel, final OnMatchItemClickListener listener) {
         Picasso.with(itemView.getContext())
                 .load(matchModel.getlId())
-                .error(R.drawable.ic_menu_camera)
-                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.drawable.ic_league)
+                .placeholder(R.drawable.ic_league)
                 .into(leagueFlag);
 
         leagueName.setText(matchModel.getlFullName());
@@ -70,16 +75,16 @@ public class MatchHolder extends RecyclerView.ViewHolder {
 
         Picasso.with(itemView.getContext())
                 .load(matchModel.gethName())
-                .error(R.drawable.ic_menu_camera)
-                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.mipmap.ic_flag_default)
+                .placeholder(R.mipmap.ic_flag_default)
                 .into(homeFlag);
         homeName.setText(matchModel.gethName());
         homeScore.setText(matchModel.gethScore());
 
         Picasso.with(itemView.getContext())
                 .load(matchModel.getgName())
-                .error(R.drawable.ic_menu_camera)
-                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.mipmap.ic_flag_default)
+                .placeholder(R.mipmap.ic_flag_default)
                 .into(guestFlag);
         guestName.setText(matchModel.getgName());
         guestScore.setText(matchModel.getgScore());
@@ -88,10 +93,32 @@ public class MatchHolder extends RecyclerView.ViewHolder {
         betGuest.setText(matchModel.getgMoney());
         betOdds.setText(matchModel.getOdds());
 
+//        //Check this match is followed?
+//        if(true) {
+//            Picasso.with(itemView.getContext())
+//                    .load(R.drawable.ic_follow)
+//                    .error(R.drawable.ic_follow)
+//                    .placeholder(R.drawable.ic_follow)
+//                    .into(matchFollow);
+//        }else{
+//            Picasso.with(itemView.getContext())
+//                    .load(R.drawable.ic_followed)
+//                    .error(R.drawable.ic_follow)
+//                    .placeholder(R.drawable.ic_follow)
+//                    .into(matchFollow);
+//        }
+
         matchFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onItemClick(matchModel, matchFollow);
+            }
+        });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(matchModel, linearLayout);
             }
         });
     }
