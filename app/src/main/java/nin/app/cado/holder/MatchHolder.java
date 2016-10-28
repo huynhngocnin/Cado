@@ -69,6 +69,13 @@ public class MatchHolder extends RecyclerView.ViewHolder {
 
         leagueName.setText(matchModel.getlFullName());
 
+        leagueName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(matchModel, leagueName);
+            }
+        });
+
         matchTime.setText(matchModel.getStart());
 
         matchDate.setText(matchModel.getDate());

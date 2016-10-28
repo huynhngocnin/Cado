@@ -2,6 +2,7 @@ package nin.app.cado.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +19,12 @@ import nin.app.cado.R;
  */
 public class MatchTabFragment extends Fragment implements View.OnClickListener {
 
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
-    public static int int_items = 3;
+    private static TabLayout tabLayout;
+    private static ViewPager viewPager;
+    public static int int_items = 2;
+    private FloatingActionButton fbtnBack;
+    private FloatingActionButton fbtnRefresh;
+
 
     @Nullable
     @Override
@@ -31,6 +35,12 @@ public class MatchTabFragment extends Fragment implements View.OnClickListener {
         View x = inflater.inflate(R.layout.match_detail_fragment, null);
         tabLayout = (TabLayout) x.findViewById(R.id.detail_tabs);
         viewPager = (ViewPager) x.findViewById(R.id.detai_viewpager);
+
+        fbtnBack = (FloatingActionButton) x.findViewById(R.id.btn_detail_back);
+        fbtnBack.setOnClickListener(this);
+
+        fbtnRefresh = (FloatingActionButton) x.findViewById(R.id.btn_detail_refresh);
+        fbtnRefresh.setOnClickListener(this);
 
         /**
          *Set an Apater for the View Pager
@@ -66,10 +76,8 @@ public class MatchTabFragment extends Fragment implements View.OnClickListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new MatchTabItemGeneralFragment();
-                case 1:
                     return new MatchTabItemLiveFragment();
-                case 2:
+                case 1:
                     return new MatchTabItemAnalysisFragment();
             }
             return null;
@@ -88,10 +96,8 @@ public class MatchTabFragment extends Fragment implements View.OnClickListener {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.match_tab_child_general);
-                case 1:
                     return getString(R.string.match_tab_child_live);
-                case 2:
+                case 1:
                     return getString(R.string.match_tab_child_analysis);
             }
             return null;
@@ -101,8 +107,11 @@ public class MatchTabFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.btn_list_refresh:
-//                break;
+            case R.id.btn_detail_back:
+                getActivity().onBackPressed();
+                break;
+            case R.id.btn_detail_refresh:
+                break;
             default:
                 break;
         }

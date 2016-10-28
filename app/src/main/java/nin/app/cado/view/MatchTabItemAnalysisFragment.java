@@ -31,7 +31,7 @@ public class MatchTabItemAnalysisFragment extends Fragment {
         //here is your arguments
         Bundle bundle = getArguments();
         //here is your list array
-        this.matchTechModels = (List<MatchTechModel>) bundle.getSerializable("");
+        //this.matchTechModels = (List<MatchTechModel>) bundle.getSerializable("");
         return inflater.inflate(R.layout.match_tab_analysis, null);
     }
 
@@ -39,7 +39,7 @@ public class MatchTabItemAnalysisFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initRecyclerView();
+        //initRecyclerView();
     }
 
     private void initRecyclerView() {

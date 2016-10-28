@@ -31,7 +31,7 @@ public class MatchTabItemLiveFragment extends Fragment {
         //here is your arguments
         Bundle bundle = getArguments();
         //here is your list array
-        this.matchDetailModels = (List<MatchDetailModel>) bundle.getSerializable("");
+        //this.matchDetailModels = (List<MatchDetailModel>) bundle.getSerializable("");
         return inflater.inflate(R.layout.match_tab_live, null);
     }
 
@@ -39,7 +39,7 @@ public class MatchTabItemLiveFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initRecyclerView();
+        //initRecyclerView();
     }
 
     private void initRecyclerView() {

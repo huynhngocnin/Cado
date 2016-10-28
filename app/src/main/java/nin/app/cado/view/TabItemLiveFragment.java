@@ -212,14 +212,21 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
     @Override
     public void onItemClick(MatchModel matchModel, View type) {
         switch (type.getId()) {
+
             case R.id.lives_img_match_follow:
                 //SnackbarUtil.showShort(progressBarRefresh, "Follow clicked: " + matchModel.getlName());
                 int positionDeo = matchResultModels.indexOf(matchModel);
-                //SnackbarUtil.showShort(progressBarRefresh, "Follow position: " + positionDeo);
                 ToastUntil.showShort(getActivity(), "Follow position: " + positionDeo);
                 break;
+            case R.id.lives_text_league_name:
+                ToastUntil.showShort(getActivity(), "League position: " + matchModel.getlFullName());
+                break;
             default:
-                SnackbarUtil.showShort(progressBarRefresh, "Item clicked: " + matchModel.getlName());
+                // Works with either the framework FragmentManager or the
+                // support package FragmentManager (getSupportFragmentManager).
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.containerView, new MatchTabFragment()).addToBackStack("detail").commit();
+                //SnackbarUtil.showShort(progressBarRefresh, "Item clicked: " + matchModel.getlName());
                 break;
 
         }

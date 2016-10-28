@@ -19,6 +19,7 @@ import java.util.List;
 import nin.app.cado.R;
 import nin.app.cado.Util.ConnectionUntil;
 import nin.app.cado.Util.DateTimeUtil;
+import nin.app.cado.Util.SnackbarUtil;
 import nin.app.cado.Util.ToastUntil;
 import nin.app.cado.adapter.MatchAdapter;
 import nin.app.cado.event.DateResultChangedEvent;
@@ -54,7 +55,7 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
     //private List<MatchModel> matchModelListTemp;
     private MatchResponseModel matchResponseModel;
 
-//    private int page = 1;
+    //    private int page = 1;
     private String date = DateTimeUtil.getYesterdayDate();
 
     @Nullable
@@ -247,9 +248,18 @@ public class TabItemResultFragment extends Fragment implements TaskListener, OnM
     @Override
     public void onItemClick(MatchModel matchModel, View type) {
         switch (type.getId()) {
-            case 1:
+            case R.id.lives_img_match_follow:
+                //SnackbarUtil.showShort(progressBarRefresh, "Follow clicked: " + matchModel.getlName());
+                break;
+            case R.id.lives_text_league_name:
+                ToastUntil.showShort(getActivity(), "League position: " + matchModel.getlFullName());
                 break;
             default:
+                // Works with either the framework FragmentManager or the
+                // support package FragmentManager (getSupportFragmentManager).
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.containerView, new MatchTabFragment()).addToBackStack("detail").commit();
+                //SnackbarUtil.showShort(progressBarRefresh, "Item clicked: " + matchModel.getlName());
                 break;
 
         }
