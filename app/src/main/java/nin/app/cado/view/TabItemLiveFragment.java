@@ -17,6 +17,7 @@ import java.util.List;
 
 import nin.app.cado.R;
 import nin.app.cado.Util.ConnectionUntil;
+import nin.app.cado.Util.DateTimeUtil;
 import nin.app.cado.Util.SnackbarUtil;
 import nin.app.cado.Util.ToastUntil;
 import nin.app.cado.adapter.MatchAdapter;
@@ -65,7 +66,7 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
         initPullRefresh();
     }
 
-//    private void initAdmobModel() {
+    //    private void initAdmobModel() {
 //        admobModel = new MatchResultModel();
 //        admobModel.setId(getString(R.string.banner_ad_unit_id));
 //    }
@@ -222,11 +223,28 @@ public class TabItemLiveFragment extends Fragment implements TaskListener, OnMat
                 ToastUntil.showShort(getActivity(), "League position: " + matchModel.getlFullName());
                 break;
             default:
-                // Works with either the framework FragmentManager or the
-                // support package FragmentManager (getSupportFragmentManager).
+                Bundle bundle = new Bundle();
+                bundle.putString(MatchTabFragment.MATCH_ID, matchModel.getId());
+                bundle.putString(MatchTabFragment.MATCH_DATE, matchModel.getDate());
+                bundle.putString(MatchTabFragment.MATCH_TIME, matchModel.getStart());
+                bundle.putString(MatchTabFragment.MATCH_LEAGUE, matchModel.getlName());
+                bundle.putString(MatchTabFragment.MATCH_HOME_LOGO, matchModel.gethName());
+                bundle.putString(MatchTabFragment.MATCH_HOME_NAME, matchModel.gethName());
+                bundle.putString(MatchTabFragment.MATCH_HOME_SCORE, matchModel.gethScore());
+                bundle.putString(MatchTabFragment.MATCH_GUEST_LOGO, matchModel.getgName());
+                bundle.putString(MatchTabFragment.MATCH_GUEST_NAME, matchModel.getgName());
+                bundle.putString(MatchTabFragment.MATCH_GUEST_SCORE, matchModel.getgScore());
+
+                MatchTabFragment tabFragment = new MatchTabFragment();
+                tabFragment.setArguments(bundle);
+
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.containerView, new MatchTabFragment()).addToBackStack("detail").commit();
+                        .add(R.id.containerView, tabFragment)
+                        .hide(this)
+                        .addToBackStack("detail")
+                        .commit();
                 //SnackbarUtil.showShort(progressBarRefresh, "Item clicked: " + matchModel.getlName());
+                //getActivity().getSupportFragmentManager().beginTransaction().hide(this).commit();
                 break;
 
         }

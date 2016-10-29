@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_match_height"
-    android:layout_marginBottom="1dp"
     android:orientation="horizontal">
 
     <RelativeLayout
@@ -17,7 +16,9 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/match_item_live_home_event_icon"
             android:gravity="center|right"
-            android:text="-" />
+            android:lines="1"
+            android:text="-"
+            android:textColor="@color/white_dark" />
 
         <ImageView
             android:id="@+id/match_item_live_home_event_icon"
@@ -30,15 +31,35 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/match_item_live_event_text"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="12"
-        android:background="@android:color/darker_gray"
-        android:gravity="center"
-        android:padding="2dp"
-        android:text="-" />
+        android:layout_weight="12">
+
+        <View
+            android:layout_centerInParent="true"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/green"/>
+
+        <View
+            android:layout_width="@dimen/time_line_radius"
+            android:layout_height="@dimen/time_line_radius"
+            android:layout_centerInParent="true"
+            android:background="@drawable/time_line_cycle" />
+
+        <TextView
+            android:id="@+id/match_item_live_event_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="@color/white_dark"
+            android:padding="2dp"
+            android:text="-" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -60,7 +81,9 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/match_item_live_kind"
             android:gravity="center|left"
-            android:text="-" />
+            android:lines="1"
+            android:text="-"
+            android:textColor="@color/white_dark" />
 
     </LinearLayout>
 

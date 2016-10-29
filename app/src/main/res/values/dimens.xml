@@ -9,4 +9,6 @@
 
     <dimen name="item_league_height">32dp</dimen>
     <dimen name="item_match_height">32dp</dimen>
+
+    <dimen name="time_line_radius">22dp</dimen>
 </resources>

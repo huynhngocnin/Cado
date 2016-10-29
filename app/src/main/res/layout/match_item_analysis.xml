@@ -12,8 +12,10 @@
         android:layout_height="match_parent"
         android:layout_weight="25"
         android:gravity="center"
+        android:lines="1"
         android:padding="2dp"
-        android:text="-" />
+        android:text="-"
+        android:textColor="@color/white_dark" />
 
     <TextView
         android:id="@+id/match_item_analysis_event_text"
@@ -22,6 +24,7 @@
         android:layout_weight="50"
         android:background="@android:color/darker_gray"
         android:gravity="center"
+        android:lines="1"
         android:padding="2dp"
         android:text="-" />
 
@@ -31,7 +34,9 @@
         android:layout_height="match_parent"
         android:layout_weight="25"
         android:gravity="center"
+        android:lines="1"
         android:padding="2dp"
-        android:text="-" />
+        android:text="-"
+        android:textColor="@color/white_dark" />
 
 </LinearLayout>

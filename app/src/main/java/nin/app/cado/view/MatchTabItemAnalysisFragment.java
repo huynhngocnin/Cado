@@ -9,19 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import nin.app.cado.R;
 import nin.app.cado.adapter.MatchAnalysisAdapter;
-import nin.app.cado.model.MatchTechModel;
+import nin.app.cado.model.MatchDetailAnalysisModel;
+import nin.app.cado.model.MatchDetailTechModel;
 
 /**
  * Created by NinHN on 9/19/2016.
  */
 public class MatchTabItemAnalysisFragment extends Fragment {
 
-    private List<MatchTechModel> matchTechModels;
+    public static final String DATA_PARAM = "dataParam";
+
+    private List<MatchDetailTechModel> matchDetailTechModels;
     private RecyclerView mRecyclerView;
     private MatchAnalysisAdapter matchAnalysisAdapter;
 
@@ -31,7 +36,7 @@ public class MatchTabItemAnalysisFragment extends Fragment {
         //here is your arguments
         Bundle bundle = getArguments();
         //here is your list array
-        //this.matchTechModels = (List<MatchTechModel>) bundle.getSerializable("");
+        this.matchDetailTechModels = Parcels.unwrap(bundle.getParcelable(DATA_PARAM));
         return inflater.inflate(R.layout.match_tab_analysis, null);
     }
 
@@ -39,15 +44,14 @@ public class MatchTabItemAnalysisFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //initRecyclerView();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
-        matchTechModels = new ArrayList<>();
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_match_tab_analysis);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        matchAnalysisAdapter = new MatchAnalysisAdapter(getActivity(), matchTechModels);
+        matchAnalysisAdapter = new MatchAnalysisAdapter(getActivity(), matchDetailTechModels);
         mRecyclerView.setAdapter(matchAnalysisAdapter);
     }
 

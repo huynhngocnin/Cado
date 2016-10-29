@@ -1,14 +1,26 @@
 package nin.app.cado.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.parceler.Parcel;
+
 /**
  * Created by ninhn on 10/3/2016.
  */
 
-public class MatchTechModel {
+@Parcel(Parcel.Serialization.BEAN)
+public class MatchDetailTechModel{
 
+    @JsonProperty("Kind")
     private int kind;
+
+    @JsonProperty("Title")
     private String title;
+
+    @JsonProperty("HomeValue")
     private String homeValue;
+
+    @JsonProperty("GuestValue")
     private String guestValue;
 
     public int getKind() {
@@ -42,4 +54,5 @@ public class MatchTechModel {
     public void setGuestValue(String guestValue) {
         this.guestValue = guestValue;
     }
+
 }

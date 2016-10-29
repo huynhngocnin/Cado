@@ -14,6 +14,7 @@ public class ServiceConstant {
     public static final String SERVICE_GET_MATCH_LIVE = BASE_SERVER + "/list";
     public static final String SERVICE_GET_MATCH_RESULT = BASE_SERVER + "/schedule/";
     public static final String SERVICE_GET_MATCH_FIXTURES = BASE_SERVER + "/schedule/";
+    public static final String SERVICE_GET_MATCH_DETAIL = BASE_SERVER + "/detail?id=%1$s&date=%2$s";
 
 
 

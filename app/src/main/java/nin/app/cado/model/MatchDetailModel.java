@@ -1,81 +1,46 @@
 package nin.app.cado.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
 /**
- * Created by ninhn on 10/6/2016.
+ * Created by NinHuynh on 10/29/16.
  */
 
 public class MatchDetailModel {
+    @JsonProperty("Match")
+    private MatchModel match;
 
-    private String happenTime;
-    private String homePlayer;
-    private String guestPlayer;
-    private int kind;
-    private String homeSubIn;
-    private String guestSubIn;
-    private int homeKind;
-    private int guestKind;
+    @JsonProperty("TechStatistic")
+    private List<MatchDetailTechModel> techStatistic;
 
-    public String getHappenTime() {
-        return happenTime;
+    @JsonProperty("DetailList")
+    private List<MatchDetailAnalysisModel> detailList;
+
+    public MatchModel getMatch() {
+        return match;
     }
 
-    public void setHappenTime(String happenTime) {
-        this.happenTime = happenTime;
+
+    public void setMatch(MatchModel match) {
+        this.match = match;
     }
 
-    public String getHomePlayer() {
-        return homePlayer;
+
+    public List<MatchDetailTechModel> getTechStatistic() {
+        return techStatistic;
     }
 
-    public void setHomePlayer(String homePlayer) {
-        this.homePlayer = homePlayer;
+    public void setTechStatistic(List<MatchDetailTechModel> techStatistic) {
+        this.techStatistic = techStatistic;
     }
 
-    public String getGuestPlayer() {
-        return guestPlayer;
+    public List<MatchDetailAnalysisModel> getDetailList() {
+        return detailList;
     }
 
-    public void setGuestPlayer(String guestPlayer) {
-        this.guestPlayer = guestPlayer;
-    }
-
-    public int getKind() {
-        return kind;
-    }
-
-    public void setKind(int kind) {
-        this.kind = kind;
-    }
-
-    public String getHomeSubIn() {
-        return homeSubIn;
-    }
-
-    public void setHomeSubIn(String homeSubIn) {
-        this.homeSubIn = homeSubIn;
-    }
-
-    public String getGuestSubIn() {
-        return guestSubIn;
-    }
-
-    public void setGuestSubIn(String guestSubIn) {
-        this.guestSubIn = guestSubIn;
-    }
-
-    public int getHomeKind() {
-        return homeKind;
-    }
-
-    public void setHomeKind(int homeKind) {
-        this.homeKind = homeKind;
-    }
-
-    public int getGuestKind() {
-        return guestKind;
-    }
-
-    public void setGuestKind(int guestKind) {
-        this.guestKind = guestKind;
+    public void setDetailList(List<MatchDetailAnalysisModel> detailList) {
+        this.detailList = detailList;
     }
 }

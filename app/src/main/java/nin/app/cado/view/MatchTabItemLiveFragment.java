@@ -9,19 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import nin.app.cado.R;
 import nin.app.cado.adapter.MatchLiveAdapter;
-import nin.app.cado.model.MatchDetailModel;
+import nin.app.cado.model.MatchDetailAnalysisModel;
 
 /**
  * Created by NinHN on 9/19/2016.
  */
 public class MatchTabItemLiveFragment extends Fragment {
 
-    private List<MatchDetailModel> matchDetailModels;
+    public static final String DATA_PARAM = "dataParam";
+
+    private List<MatchDetailAnalysisModel> matchDetailAnalysisModels;
     private RecyclerView mRecyclerView;
     private MatchLiveAdapter matchLiveAdapter;
 
@@ -31,7 +35,7 @@ public class MatchTabItemLiveFragment extends Fragment {
         //here is your arguments
         Bundle bundle = getArguments();
         //here is your list array
-        //this.matchDetailModels = (List<MatchDetailModel>) bundle.getSerializable("");
+        this.matchDetailAnalysisModels = Parcels.unwrap(bundle.getParcelable(DATA_PARAM));
         return inflater.inflate(R.layout.match_tab_live, null);
     }
 
@@ -39,15 +43,14 @@ public class MatchTabItemLiveFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //initRecyclerView();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
-        matchDetailModels = new ArrayList<>();
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_match_tab_live);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        matchLiveAdapter = new MatchLiveAdapter(getActivity(), matchDetailModels);
+        matchLiveAdapter = new MatchLiveAdapter(getActivity(), matchDetailAnalysisModels);
         mRecyclerView.setAdapter(matchLiveAdapter);
     }
 

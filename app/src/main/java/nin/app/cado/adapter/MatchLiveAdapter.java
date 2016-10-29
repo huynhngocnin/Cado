@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import nin.app.cado.R;
-import nin.app.cado.holder.MatchLiveHolder;
-import nin.app.cado.model.MatchDetailModel;
+import nin.app.cado.holder.MatchDetailLiveHolder;
+import nin.app.cado.model.MatchDetailAnalysisModel;
+import nin.app.cado.model.MatchDetailTechModel;
 
 /**
  * Created by ninhn on 10/7/2016.
@@ -19,18 +20,18 @@ import nin.app.cado.model.MatchDetailModel;
 public class MatchLiveAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<MatchDetailModel> matchDetailModels;
+    private List<MatchDetailAnalysisModel> matchDetailAnalysisModels;
 
 
-    public MatchLiveAdapter(Context context, List<MatchDetailModel> matchDetailModels) {
+    public MatchLiveAdapter(Context context, List<MatchDetailAnalysisModel> matchDetailAnalysisModels) {
         this.context = context;
-        this.matchDetailModels = matchDetailModels;
+        this.matchDetailAnalysisModels = matchDetailAnalysisModels;
     }
 
 
     @Override
     public int getItemCount() {
-        return this.matchDetailModels == null ? 0 : this.matchDetailModels.size();
+        return this.matchDetailAnalysisModels == null ? 0 : this.matchDetailAnalysisModels.size();
     }
 
     @Override
@@ -42,11 +43,11 @@ public class MatchLiveAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(this.context).inflate(R.layout.match_item_live, parent, false);
-        return new MatchLiveHolder(view);
+        return new MatchDetailLiveHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((MatchLiveHolder) holder).bind(this.context, this.matchDetailModels.get(position));
+        ((MatchDetailLiveHolder) holder).bind(this.context, this.matchDetailAnalysisModels.get(position));
     }
 }
